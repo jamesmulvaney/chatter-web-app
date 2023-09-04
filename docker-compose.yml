@@ -1,0 +1,28 @@
+version: '3'
+services:
+  chatter-web-app:
+    image: chatter-web-app
+    container_name: chatter-web-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.production.docker
+    depends_on:
+      - chatter-db
+
+  chatter-db:
+    image: postgres:15.4-alpine
+    container_name: chatter-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./prisma/pg-data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.production.docker
