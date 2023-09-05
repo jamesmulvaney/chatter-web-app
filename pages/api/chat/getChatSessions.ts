@@ -12,7 +12,10 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      res.status(400).json({ success: false });
+      res.status(401).json({
+        success: false,
+        reason: "You need to be logged in to do that.",
+      });
       return;
     }
 
@@ -31,11 +34,16 @@ export default async function handler(
     });
 
     if (!user) {
-      res.status(400).json({ success: false });
+      res.status(401).json({
+        success: false,
+        reason: "You need to be logged in to do that.",
+      });
     } else {
       res.status(200).json({ chatSessions: user?.chatSessions, success: true });
     }
   } else {
-    res.status(400).json({ success: false });
+    res
+      .status(405)
+      .json({ success: false, reason: `Method ${req.method} is not allowed.` });
   }
 }

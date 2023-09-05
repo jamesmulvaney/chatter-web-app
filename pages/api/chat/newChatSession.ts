@@ -13,7 +13,7 @@ export default async function handler(
     const { targetUsername } = req.body;
 
     if (!session) {
-      res.status(400).json({
+      res.status(401).json({
         error: {
           field: "session",
           reason: "You need to be logged in to start a chat session.",
@@ -31,7 +31,7 @@ export default async function handler(
     });
 
     if (!target) {
-      res.status(400).json({
+      res.status(404).json({
         error: {
           field: "targetUsername",
           reason: "User was not found. Please double check the username.",
@@ -97,7 +97,7 @@ export default async function handler(
       });
 
       if (!newChatSession) {
-        res.status(400).json({
+        res.status(500).json({
           error: {
             field: "unknown",
             reason:
@@ -111,12 +111,19 @@ export default async function handler(
       res.status(200).json({ chatSessionId: newChatSession.id });
     } catch (err) {
       console.error(err);
+      res.status(500).json({
+        error: {
+          field: "unknown",
+          reason:
+            "Failed to create a new chat session. Please try again later.",
+        },
+      });
     }
   } else {
-    res.status(400).json({
+    res.status(405).json({
       error: {
         field: "unknown",
-        reason: "That method is not allowed.",
+        reason: `Method ${req.method} is not allowed.`,
       },
     });
   }

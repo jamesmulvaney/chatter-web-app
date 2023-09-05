@@ -17,7 +17,7 @@ export default async function handler(
     const { username } = JSON.parse(req.body);
 
     if (!session) {
-      res.status(400).json({
+      res.status(401).json({
         success: false,
         reason: "You must be logged in to change your username.",
       });
@@ -52,11 +52,13 @@ export default async function handler(
       res.status(200).json({ success: true });
     } catch (err) {
       console.log(err);
-      res.status(400).json({ success: false });
+      res
+        .status(500)
+        .json({ success: false, reason: "Error updating username." });
     }
   } else {
     res
-      .status(400)
-      .json({ success: false, reason: "That method is not allowed." });
+      .status(405)
+      .json({ success: false, reason: `Method ${req.method} is not allowed.` });
   }
 }

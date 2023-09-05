@@ -13,6 +13,7 @@ export type MessagesWithAuthor = Messages & {
 export type GetChatSessionsResponse = {
   chatSessions?: CSessions[];
   success: boolean;
+  reason?: string;
 };
 
 export type GetChatSessionResponse = {
@@ -26,6 +27,7 @@ export type GetChatSessionResponse = {
 export type GetChatMessagesResponse = {
   messages?: MessagesWithAuthor[];
   success: boolean;
+  reason?: string;
 };
 
 export type ChatSessionFull = {

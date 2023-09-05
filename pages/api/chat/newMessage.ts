@@ -21,7 +21,7 @@ export default async function handler(
 
     //Check if user exists and is part of the chat
     if (!session) {
-      res.status(400).json({
+      res.status(401).json({
         success: false,
         reason: "You need to be logged in to send chat messages.",
       });
@@ -39,14 +39,14 @@ export default async function handler(
 
     if (!chatSession) {
       res
-        .status(400)
+        .status(403)
         .json({ success: false, reason: "You are not part of that chat." });
       return;
     }
 
     if (!chatSession?.users.some((user) => user.id === session!.user!.id!)) {
       res
-        .status(400)
+        .status(403)
         .json({ success: false, reason: "You are not part of that chat." });
       return;
     }
@@ -73,12 +73,13 @@ export default async function handler(
     } catch (err) {
       console.error(err);
       res
-        .status(400)
+        .status(500)
         .json({ success: false, reason: "Error sending message." });
       return;
     }
   } else {
-    res.status(400).json({ success: false });
-    return;
+    res
+      .status(405)
+      .json({ success: false, reason: `Method ${req.method} is not allowed.` });
   }
 }

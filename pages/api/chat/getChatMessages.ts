@@ -14,7 +14,12 @@ export default async function handler(
 
     //Check if authenticated
     if (!session) {
-      res.status(400).json({ success: false });
+      res
+        .status(401)
+        .json({
+          success: false,
+          reason: "You need to be logged in to do that.",
+        });
       return;
     }
 
@@ -34,12 +39,16 @@ export default async function handler(
     });
 
     if (!chat) {
-      res.status(400).json({ success: false });
+      res
+        .status(404)
+        .json({ success: false, reason: "Chat session not found." });
       return;
     }
 
     if (!chat.users.some((user) => user.id === session.user?.id)) {
-      res.status(400).json({ success: false });
+      res
+        .status(404)
+        .json({ success: false, reason: "Chat session not found." });
       return;
     }
 
@@ -50,6 +59,8 @@ export default async function handler(
       success: true,
     });
   } else {
-    res.status(400).json({ success: false });
+    res
+      .status(405)
+      .json({ success: false, reason: `Method ${req.method} is not allowed.` });
   }
 }
