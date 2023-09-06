@@ -10,6 +10,7 @@ type MessageBitProps = {
   body: string;
   createdAt: Date;
   avatar: string;
+  name: string;
 };
 
 function timeAgoFormatter(
@@ -24,9 +25,15 @@ function timeAgoFormatter(
   return `${value} ${unit}${value !== 1 ? "s" : ""} ${suffix}`;
 }
 
-function MessageBit({ isAuthor, body, createdAt, avatar }: MessageBitProps) {
+function MessageBit({
+  isAuthor,
+  body,
+  createdAt,
+  avatar,
+  name,
+}: MessageBitProps) {
   const authorBit = (
-    <div className="flex flex-row items-center justify-end space-x-2 mb-3">
+    <div className="flex flex-row items-center justify-end space-x-2 mb-5">
       <p className="text-xs font-light text-gray-600 dark:text-gray-300">
         <TimeAgo
           date={createdAt}
@@ -49,7 +56,7 @@ function MessageBit({ isAuthor, body, createdAt, avatar }: MessageBitProps) {
   );
 
   const otherBit = (
-    <div className="flex flex-row items-center space-x-2 mb-3">
+    <div className="flex flex-row items-center space-x-2 mb-5">
       <Image
         src={avatar}
         alt="user avatar"
@@ -57,9 +64,14 @@ function MessageBit({ isAuthor, body, createdAt, avatar }: MessageBitProps) {
         width={32}
         className="rounded-full"
       />
-      <p className="bg-gray-200 dark:bg-gray-800 rounded-lg font-light text-md py-2 px-3 max-w-[25vw]">
-        {body}
-      </p>
+      <div className="-mt-4">
+        <p className="text-xs font-light text-gray-600 dark:text-gray-300">
+          {name}
+        </p>
+        <p className="bg-gray-200 dark:bg-gray-800 rounded-lg font-light text-md py-2 px-3 max-w-[25vw]">
+          {body}
+        </p>
+      </div>
       <p className="text-xs font-light text-gray-600 dark:text-gray-300">
         <TimeAgo
           date={createdAt}

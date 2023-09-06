@@ -62,6 +62,7 @@ function ChatBox({ session, chatId, serverFetchedMessages }: ChatBoxProps) {
                 body={message.body}
                 createdAt={message.createdAt}
                 avatar={message.author.image!}
+                name={message.author.name!}
                 key={message.id}
               />
             )
