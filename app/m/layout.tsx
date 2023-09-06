@@ -15,7 +15,7 @@ async function MainAppLayout({ children }: { children: React.ReactNode }) {
 
   //Initial fetch for side bar
   const getChatSessions = await fetch(
-    `http://localhost:3000/api/chat/getChatSessions`,
+    `${process.env.BASE_URL}/api/chat/getChatSessions`,
     {
       method: "GET",
       //@ts-ignore

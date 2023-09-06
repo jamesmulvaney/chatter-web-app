@@ -23,14 +23,17 @@ function NewChatForm({ session }: NewChatFormProps) {
     }),
     onSubmit: async (values, { setFieldError }) => {
       console.log(values);
-      const res = await fetch("http://localhost:3000/api/chat/newChatSession", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        }),
-      });
+      const res = await fetch(
+        `${process.env.BASE_URL}/api/chat/newChatSession`,
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: new Headers({
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          }),
+        }
+      );
 
       const data: NewChatSessionRes = await res.json();
 

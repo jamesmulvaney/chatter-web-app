@@ -24,7 +24,7 @@ function ChooseUsernameForm({ session }: ChooseUsernameFormProps) {
     }),
     onSubmit: async (values, { setFieldError }) => {
       console.log(values);
-      const res = await fetch("http://localhost:3000/api/chat/newUsername", {
+      const res = await fetch(`${process.env.BASE_URL}/api/chat/newUsername`, {
         method: "POST",
         body: JSON.stringify(values),
       });

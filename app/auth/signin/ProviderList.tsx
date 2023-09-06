@@ -18,7 +18,7 @@ function ProviderList({ providers }: ProvidersProps) {
             <button
               onClick={() =>
                 signIn(provider.id, {
-                  callbackUrl: "http://localhost:3000/m",
+                  callbackUrl: `${process.env.BASE_URL}/m`,
                 })
               }
               className="flex items-center justify-center my-2 transition duration-200 border bg-white dark:bg-transparent border-gray-200 text-gray-500 dark:text-gray-100 w-full py-2.5 rounded text-base shadow-sm hover:shadow-md font-normal text-center"

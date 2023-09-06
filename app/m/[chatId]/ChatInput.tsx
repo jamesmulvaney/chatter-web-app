@@ -20,7 +20,7 @@ function ChatInput({ chatId, session }: ChatInputProps) {
   );
 
   const setNewMessage = async (values: any) => {
-    const res = await fetch("http://localhost:3000/api/chat/newMessage", {
+    const res = await fetch(`${process.env.BASE_URL}/api/chat/newMessage`, {
       method: "POST",
       body: JSON.stringify(values),
       headers: new Headers({
