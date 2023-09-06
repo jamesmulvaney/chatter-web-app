@@ -24,10 +24,13 @@ function ChooseUsernameForm({ session }: ChooseUsernameFormProps) {
     }),
     onSubmit: async (values, { setFieldError }) => {
       console.log(values);
-      const res = await fetch(`${process.env.BASE_URL}/api/chat/newUsername`, {
-        method: "POST",
-        body: JSON.stringify(values),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/newUsername`,
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+        }
+      );
 
       const data = await res.json();
 

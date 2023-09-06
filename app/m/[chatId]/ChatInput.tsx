@@ -20,14 +20,17 @@ function ChatInput({ chatId, session }: ChatInputProps) {
   );
 
   const setNewMessage = async (values: any) => {
-    const res = await fetch(`${process.env.BASE_URL}/api/chat/newMessage`, {
-      method: "POST",
-      body: JSON.stringify(values),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/newMessage`,
+      {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        }),
+      }
+    );
 
     const data = await res.json();
     const message: MessagesWithAuthor = data.message;
