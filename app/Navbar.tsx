@@ -52,7 +52,7 @@ async function Navbar() {
                     <p className="text-lg font-semibold leading-3">
                       {session.user?.name}
                     </p>
-                    <p className="text-sm font-light text-gray-500 leading-3">
+                    <p className="text-sm text-gray-500 leading-3">
                       @{session.user?.username || "chooseAUsername"}
                     </p>
                   </div>
